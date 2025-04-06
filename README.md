@@ -1,4 +1,4 @@
-# HSL Color Struct Testing Task
+# HSL Color Struct Testing
 
 Beginner level task for practicing unit testing.
 
