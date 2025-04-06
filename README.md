@@ -1,5 +1,11 @@
 # HSL Color Struct Testing Task
 
+Beginner level task for practicing unit testing.
+
+Estimated time to complete the task - 2h.
+
+The task requires .NET 8 SDK installed.
+
 ## Task Description
 
 Implement a comprehensive test suite for the existing `HslColor` structure that represents a color in the HSL (Hue, Saturation, Lightness) color model. The structure is already implemented and provides functionality for creating, parsing, and comparing HSL colors.
