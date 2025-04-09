@@ -210,6 +210,7 @@ dotnet_diagnostic.CA1014.severity = none      # Mark assemblies with CLSComplian
 dotnet_diagnostic.CA1031.severity = none     # Do not catch general exception types
 dotnet_diagnostic.CA1032.severity = error     # Implement standard exception constructors
 dotnet_diagnostic.CA1046.severity = error     # Do not overload operator equals on reference types
+dotnet_diagnostic.CA1065.severity = none     # Do not raise exceptions in unexpected locations
 # Globalization rules
 dotnet_diagnostic.CA1303.severity = none      # Do not pass literals as localized parameters
 # Maintainability rules

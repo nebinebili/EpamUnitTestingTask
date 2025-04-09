@@ -1,24 +1,59 @@
-# HSL Color Struct Testing
+# HSL Color Struct Implementation and Testing
 
-Beginner level task for practicing unit testing.
+The intermediate level task for implementing a structure that represents a color in the HSL (Hue, Saturation, Lightness) format and creating comprehensive unit tests for it.
 
-Estimated time to complete the task - 2h.
+Estimated time to complete the task - 4h.
 
 The task requires .NET 8 SDK installed.
 
+## Important Note
+
+**DO NOT CHANGE THE FOLLOWING NAMES:**
+- Project names: `HslColorStruct` and `HslColorStruct.Tests`
+- Structure name: `HslColor`
+- Test class name: `HslColorTests`
+- Namespaces: `HslColorStruct`, `HslColorStruct.Tests`
+
+The correctness of the implementation will be verified using hidden tests (not included in the student's repository), and test coverage will be evaluated based on the tests written by the student. Changing any of these names will result in test failures.
+
+## Project Structure
+
+The solution consists of two projects:
+- `HslColorStruct` - Contains the implementation of the `HslColor` structure
+- `HslColorStruct.Tests` - Contains unit tests for the `HslColor` structure
+
 ## Task Description
 
-Implement a comprehensive test suite for the existing `HslColor` structure that represents a color in the HSL (Hue, Saturation, Lightness) color model. The structure is already implemented and provides functionality for creating, parsing, and comparing HSL colors.
+Implement a structure `HslColor` that represents a color in the HSL (Hue, Saturation, Lightness) color model and create a comprehensive test suite for it.
 
-### Requirements
+### Requirements for Structure Implementation
 
-1. Create unit tests for the following functionality:
-   - Constructor validation
+1. Create a structure `HslColor` with the following characteristics:
+   - Immutable and readonly struct
+   - Hue range: 0-360 degrees
+   - Saturation range: 0-100%
+   - Lightness range: 0-100%
+   - String format: "H,S,L" with integer values
+   - Equality comparison for all components
+
+2. Implement the following functionality:
+   - Constructor with parameter validation
    - Property getters (Hue, Saturation, Lightness)
    - Static `Create` method with parameter validation
    - `Parse` method for converting string to HslColor
    - `TryParse` method for safe string conversion
    - Equality comparison methods (`Equals`, `==`, `!=`)
+   - `GetHashCode` method
+   - `ToString` method
+
+### Requirements for Test Implementation
+
+1. Create unit tests for all implemented functionality:
+   - Constructor validation
+   - Property getters
+   - Static `Create` method
+   - `Parse` and `TryParse` methods
+   - Equality comparison methods
    - `GetHashCode` method
    - `ToString` method
 
@@ -39,15 +74,9 @@ Implement a comprehensive test suite for the existing `HslColor` structure that 
    - Object equality
    - String formatting
 
-### Implementation Notes
+### Testing Framework
 
-The `HslColor` structure is already implemented with the following characteristics:
-- Immutable and readonly struct
-- Hue range: 0-360 degrees
-- Saturation range: 0-100%
-- Lightness range: 0-100%
-- String format: "H,S,L" with two decimal places
-- Equality comparison uses double.Epsilon for floating-point comparison
+The project uses [NUnit](https://nunit.org/) testing framework version 4.0.1.
 
 ### Example Test Cases
 
@@ -75,7 +104,7 @@ public void Constructor_WithValidValues_CreatesColor()
 public void Parse_WithValidString_ReturnsColor()
 {
     // Arrange
-    string hslString = "120.00,50.00,75.00";
+    string hslString = "120,50,75";
 
     // Act
     var color = HslColor.Parse(hslString);
@@ -87,25 +116,24 @@ public void Parse_WithValidString_ReturnsColor()
 }
 ```
 
-### Additional Requirements
+### Code Style and Formatting
 
-1. Create a test project using xUnit testing framework
-2. Ensure test coverage is comprehensive
-3. Include XML documentation for test methods
-4. Follow SOLID principles in test organization
-5. Use appropriate test categories and attributes
-6. Implement test data using appropriate patterns (e.g., Theory, InlineData)
+The project follows these code style guidelines:
+- Uses `.editorconfig` for consistent code formatting
+- Uses StyleCop for code analysis
+- Follows C# coding conventions
+- Uses XML documentation for public members
+- Uses meaningful variable and method names
 
-### Deliverables
+### Test Coverage
 
-1. Complete test project with all required test cases
-2. Documentation of test coverage
-3. Any additional test utilities or helper methods
-4. Updated README with test execution instructions
+The test suite provides comprehensive coverage for:
+- All public methods and properties
+- Edge cases and boundary conditions
+- Invalid input handling
+- String parsing and formatting
+- Equality comparison
+- Hash code generation
 
-### Project Setup
+For a simple explanation of what code coverage is and why it's important, see [this article](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-code-coverage).
 
-1. Create a new xUnit test project in the solution
-2. Add a reference to the `HslColorStruct` project
-3. Implement test classes following the structure of the `HslColor` implementation
-4. Run tests using `dotnet test` command

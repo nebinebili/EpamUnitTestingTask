@@ -28,4 +28,7 @@
   <ItemGroup>
     <Using Include="NUnit.Framework"/>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HslColorStruct\HslColorStruct.csproj" />
+  </ItemGroup>
 </Project>
