@@ -2,7 +2,7 @@
 
 The intermediate level task for implementing a structure that represents a color in the HSL (Hue, Saturation, Lightness) format and creating comprehensive unit tests for it.
 
-Estimated time to complete the task - 4h.
+Estimated time to complete the task - 2h.
 
 The task requires .NET 8 SDK installed.
 
