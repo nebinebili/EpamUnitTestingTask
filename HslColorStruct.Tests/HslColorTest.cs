@@ -8,23 +8,23 @@ public class HslColorTests
     [SetUp]
     public void Setup()
     {
-        _hslColor = new HslColor(120,50,70);
+        this._hslColor = new HslColor(120, 50, 70);
     }
 
     [Test]
     public void Hue_Getter_ReturnsCorrectValues()
     {
-        Assert.That(_hslColor.Hue, Is.EqualTo(120));
+        Assert.That(this._hslColor.Hue, Is.EqualTo(120));
     }
     [Test]
     public void Saturationue_Getter_ReturnsCorrectValues()
     {
-        Assert.That(_hslColor.Saturation, Is.EqualTo(50));
+        Assert.That(this._hslColor.Saturation, Is.EqualTo(50));
     }
     [Test]
     public void Lightness_Getter_ReturnsCorrectValues()
     {
-        Assert.That(_hslColor.Lightness, Is.EqualTo(70));
+        Assert.That(this._hslColor.Lightness, Is.EqualTo(70));
     }
 
     [Test]
@@ -42,16 +42,13 @@ public class HslColorTests
     }
 
 
-    [TestCase(500,40,70)]
-    [TestCase(120,180,70)]
-    [TestCase(-895,60,70)]
-    [TestCase(10,60,280)]
+    [TestCase(500, 40, 70)]
+    [TestCase(120, 180, 70)]
+    [TestCase(-895, 60, 70)]
+    [TestCase(10, 60, 280)]
     public void Constructor_WithInValidValues_ThrowArgumentException(int hue, int saturation, int lightness)
     {
-
-        // Assert
         Assert.Throws<ArgumentException>(() => new HslColor(hue, saturation, lightness));
-
     }
 
 
@@ -95,7 +92,7 @@ public class HslColorTests
     [TestCase("12,12321")]
     [TestCase("-12,100,40")]
     [TestCase(" ")]
-    public void Parse_WithInValidString_ThrowArgumentException( string hslString)
+    public void Parse_WithInValidString_ThrowArgumentException(string hslString)
     {
         Assert.Throws<ArgumentException>(() => HslColor.Parse(hslString));
     }
@@ -107,7 +104,7 @@ public class HslColorTests
 
         bool result = HslColor.TryParse(hslString, out HslColor color);
 
-        Assert.That(result,Is.EqualTo(true));
+        Assert.That(result, Is.EqualTo(true));
     }
 
     [TestCase("hello")]
@@ -148,7 +145,7 @@ public class HslColorTests
 
         var color2 = new HslColor(120, 50, 70);
 
-        bool result=color1.Equals(color2);
+        bool result = color1.Equals(color2);
 
         Assert.That(result, Is.True);
     }
@@ -160,7 +157,7 @@ public class HslColorTests
     {
         var color1 = new HslColor(120, 50, 70);
 
-        var color2 = new HslColor(hue,saturation,lightness);
+        var color2 = new HslColor(hue, saturation, lightness);
 
         bool result = color1.Equals(color2);
 
@@ -204,7 +201,7 @@ public class HslColorTests
     {
         var color = new HslColor(120, 50, 75);
 
-        var hslString= color.ToString();
+        var hslString = color.ToString();
 
         Assert.That(hslString, Is.EqualTo("120,50,75"));
     }
@@ -216,9 +213,9 @@ public class HslColorTests
 
         var color2 = new HslColor(120, 50, 70);
 
-        int hash1=color1.Hue.GetHashCode();
+        int hash1 = color1.Hue.GetHashCode();
 
-        int hash2=color2.Hue.GetHashCode();
+        int hash2 = color2.Hue.GetHashCode();
 
         Assert.That(hash1, Is.EqualTo(hash2));
     }
