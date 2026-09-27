@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace HslColorStruct;
 
 /// <summary>
@@ -5,145 +7,137 @@ namespace HslColorStruct;
 /// </summary>
 public readonly struct HslColor : IEquatable<HslColor>
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="HslColor"/> struct with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="lightness"/>.
-    /// </summary>
-    /// <param name="hue">The hue component (0-360 degrees).</param>
-    /// <param name="saturation">The saturation component (0-100%).</param>
-    /// <param name="lightness">The lightness component (0-100%).</param>
-    /// <exception cref="ArgumentException">Thrown when any of the components is outside its valid range.</exception>
+    private readonly int hue;
+    private readonly int saturation;
+    private readonly int lightness;
+
     public HslColor(int hue, int saturation, int lightness)
     {
-        throw new NotImplementedException();
+        Hue = hue;
+        Saturation = saturation;
+        Lightness = lightness;
     }
 
-    /// <summary>
-    /// Gets the hue component (0-360 degrees).
-    /// </summary>
-    /// <exception cref="ArgumentException">Thrown when value is outside the valid range (0-360).</exception>
     public int Hue
     {
-        get => throw new NotImplementedException();
-        init => throw new NotImplementedException();
+
+        get => hue;
+        init
+        {
+            ThrowExceptionIfValueIsNotValid(value, nameof(value), 0, 360);
+            hue = value;
+        }
     }
 
-    /// <summary>
-    /// Gets the saturation component (0-100%).
-    /// </summary>
-    /// <exception cref="ArgumentException">Thrown when value is outside the valid range (0-100).</exception>
     public int Saturation
     {
-        get => throw new NotImplementedException();
-        init => throw new NotImplementedException();
+        get => saturation;
+        init
+        {
+            ThrowExceptionIfValueIsNotValid(value, nameof(value), 0, 100);
+            saturation = value;
+        }
     }
 
-    /// <summary>
-    /// Gets the lightness component (0-100%).
-    /// </summary>
-    /// <exception cref="ArgumentException">Thrown when value is outside the valid range (0-100).</exception>
     public int Lightness
     {
-        get => throw new NotImplementedException();
-        init => throw new NotImplementedException();
+        get => lightness;
+        init
+        {
+            ThrowExceptionIfValueIsNotValid(value, nameof(value), 0, 100);
+            lightness = value;
+        }
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="HslColor"/> struct with specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="lightness"/>.
-    /// </summary>
-    /// <param name="hue">The hue component (0-360 degrees).</param>
-    /// <param name="saturation">The saturation component (0-100%).</param>
-    /// <param name="lightness">The lightness component (0-100%).</param>
-    /// <returns>A <see cref="HslColor"/> that is initialized with specified components.</returns>
-    /// <exception cref="ArgumentException">Thrown when any of the components is outside its valid range.</exception>
     public static HslColor Create(int hue, int saturation, int lightness)
     {
-        throw new NotImplementedException();
+        return new HslColor(hue, saturation, lightness);
     }
 
-    /// <summary>
-    /// Converts the string representation of a color to its <see cref="HslColor"/> equivalent.
-    /// </summary>
-    /// <param name="hslString">A string containing a color to convert in format "H,S,L".</param>
-    /// <returns>An <see cref="HslColor"/> equivalent to the color contained in <paramref name="hslString"/>.</returns>
-    /// <exception cref="ArgumentException">Thrown when <paramref name="hslString"/> is invalid.</exception>
     public static HslColor Parse(string hslString)
     {
-        throw new NotImplementedException();
+        if(TryParse(hslString, out HslColor result))
+        {
+            return result;
+        }
+        throw new ArgumentException("HslString format is invalid");
     }
 
-    /// <summary>
-    /// Converts the string representation of a color to its <see cref="HslColor"/> equivalent. A return value indicates whether the operation succeeded.
-    /// </summary>
-    /// <param name="hslString">A string containing a color to convert in format "H,S,L".</param>
-    /// <param name="hslColor">A <see cref="HslColor"/> equivalent to the color contained in <paramref name="hslString"/>.</param>
-    /// <returns>true if <paramref name="hslString"/> was converted successfully; otherwise, false.</returns>
+
     public static bool TryParse(string hslString, out HslColor hslColor)
     {
-        throw new NotImplementedException();
+        hslColor = default;
+
+        if (string.IsNullOrWhiteSpace(hslString)) { return false; }
+
+        var splitList = hslString.Split(",").ToList();
+        List<int> parseList = new List<int>();
+
+        if (splitList.Count != 3) { return false; }
+
+        foreach (var item in splitList)
+        {
+            if (!int.TryParse(item, out int value))
+            {
+                return false;
+            }
+
+            parseList.Add(value);
+        }
+
+        try
+        {
+            hslColor = Create(parseList[0], parseList[1], parseList[2]);
+            return true;
+        }
+        catch (ArgumentException)
+        {
+
+            return false;
+        }
     }
 
-    /// <summary>
-    /// Determines whether the specified <see cref="HslColor"/> is equal to the current <see cref="HslColor"/>.
-    /// </summary>
-    /// <param name="other">The <see cref="HslColor"/> to compare with the current <see cref="HslColor"/>.</param>
-    /// <returns>true if the specified <see cref="HslColor"/> is equal to the current <see cref="HslColor"/>; otherwise, false.</returns>
     public bool Equals(HslColor other)
     {
-        throw new NotImplementedException();
+      return Hue == other.Hue && Saturation == other.Saturation && Lightness == other.Lightness;
     }
 
-    /// <summary>
-    /// Determines whether the specified object is equal to the current <see cref="HslColor"/>.
-    /// </summary>
-    /// <param name="obj">The object to compare with the current <see cref="HslColor"/>.</param>
-    /// <returns>true if the specified object is equal to the current <see cref="HslColor"/>; otherwise, false.</returns>
+
     public override bool Equals(object? obj)
     {
-        throw new NotImplementedException();
+        return obj is HslColor other && Equals(other);
     }
 
-    /// <summary>
-    /// Gets a hash code of the current <see cref="HslColor"/>.
-    /// </summary>
-    /// <returns>A hash code of the current <see cref="HslColor"/>.</returns>
+
     public override int GetHashCode()
     {
-        throw new NotImplementedException();
+        return HashCode.Combine(Hue, Saturation, Lightness);
     }
 
-    /// <summary>
-    /// Returns a string that represents the current <see cref="HslColor"/>.
-    /// </summary>
-    /// <returns>A string that represents the current <see cref="HslColor"/>.</returns>
+
     public override string ToString()
     {
-        throw new NotImplementedException();
+        return $"{Hue},{Saturation},{Lightness}";
     }
 
-    /// <summary>
-    /// Compares <paramref name="left"/> and <paramref name="right"/> objects. Returns true if the left <see cref="HslColor"/> is equal to the right <see cref="HslColor"/>; otherwise, false.
-    /// </summary>
-    /// <param name="left">A left <see cref="HslColor"/>.</param>
-    /// <param name="right">A right <see cref="HslColor"/>.</param>
-    /// <returns>true if the left <see cref="HslColor"/> is equal to the right <see cref="HslColor"/>; otherwise, false.</returns>
     public static bool operator ==(HslColor left, HslColor right)
     {
-        throw new NotImplementedException();
+        return left.Equals(right);
     }
 
-    /// <summary>
-    /// Compares <paramref name="left"/> and <paramref name="right"/> objects. Returns true if the left <see cref="HslColor"/> is not equal to the right <see cref="HslColor"/>; otherwise, false.
-    /// </summary>
-    /// <param name="left">A left <see cref="HslColor"/>.</param>
-    /// <param name="right">A right <see cref="HslColor"/>.</param>
-    /// <returns>true if the left <see cref="HslColor"/> is not equal to the right <see cref="HslColor"/>; otherwise, false.</returns>
+
     public static bool operator !=(HslColor left, HslColor right)
     {
-        throw new NotImplementedException();
+        return !left.Equals(right);
     }
+
 
     private static void ThrowExceptionIfValueIsNotValid(int value, string parameterName, int minValue, int maxValue)
     {
-        throw new NotImplementedException();
+        if (value < minValue || value > maxValue)
+        {
+            throw new ArgumentException($"Value must be between {minValue} and {maxValue}", parameterName);
+        }
     }
+
 }
